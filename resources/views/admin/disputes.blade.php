@@ -1,0 +1,10 @@
+@extends('layouts.admin')
+@section('content')
+<div class="card"><div class="card-header">Disputes & admin-present meetings</div><div class="table-responsive"><table class="table table-sm mb-0"><tr><th>Order</th><th>Buyer</th><th>Dispute</th><th>Meeting (date / place / admin)</th></tr>
+@forelse($orders as $o)<tr><td>{{ $o->ref }}<br><span class="badge text-bg-secondary">{{ $o->status }}</span></td><td>{{ $o->name }}<br><small>{{ $o->phone }}</small>@if($o->admin_present)<br><span class="badge text-bg-warning">admin present</span>@endif</td>
+<td>@if($o->dispute){{ $o->dispute->reason }}<br><span class="badge text-bg-{{ $o->dispute->status === 'open' ? 'warning' : ($o->dispute->status === 'refund' ? 'success' : 'danger') }}">{{ $o->dispute->status }}</span> {{ $o->dispute->resolution }}
+@if($o->dispute->status === 'open')<div class="d-flex gap-1 mt-1"><form method="post" action="/admin/disputes/{{ $o->dispute->id }}/refund">@csrf<button class="btn btn-sm btn-jm">Refund</button></form>
+<form method="post" action="/admin/disputes/{{ $o->dispute->id }}/reject" class="d-flex gap-1">@csrf<input name="resolution" class="form-control form-control-sm" placeholder="Reason" required><button class="btn btn-sm btn-outline-danger">Reject</button></form></div>@endif @else —@endif</td>
+<td>@if($o->meeting)✔ {{ $o->meeting->meet_at }} · {{ $o->meeting->place }} · {{ $o->meeting->admin_name }}<br>@endif
+<form method="post" action="/admin/orders/{{ $o->id }}/meeting" class="d-flex flex-wrap gap-1">@csrf<input name="meet_at" class="form-control form-control-sm w-auto" placeholder="Date / time" required value="{{ $o->meeting->meet_at ?? '' }}"><input name="place" class="form-control form-control-sm w-auto" placeholder="Place" required value="{{ $o->meeting->place ?? '' }}"><input name="admin_name" class="form-control form-control-sm w-auto" placeholder="Admin name" required value="{{ $o->meeting->admin_name ?? '' }}"><button class="btn btn-sm btn-jm">Save</button></form></td></tr>@empty<tr><td colspan="4">No disputes or meetings yet</td></tr>@endforelse</table></div></div>
+@endsection

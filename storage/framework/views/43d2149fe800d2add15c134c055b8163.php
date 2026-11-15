@@ -1,0 +1,7 @@
+<?php $__env->startSection('content'); ?>
+<div class="card"><div class="card-header">Contact messages</div><div class="table-responsive"><table class="table table-sm mb-0"><tr><th>Time</th><th>Type</th><th>Ad ref</th><th>Message</th><th>From</th><th></th></tr>
+<?php $__empty_1 = true; $__currentLoopData = $items; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $m): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?><tr><td><?php echo e($m->created_at?->format('Y-m-d H:i')); ?></td><td><?php echo e($m->type); ?></td><td><?php echo e($m->ad_ref); ?></td><td><?php echo e($m->message); ?></td><td><?php echo e($m->name); ?><br><small><?php echo e($m->phone); ?></small></td>
+<td><?php if($m->status === 'open'): ?><form method="post" action="/admin/messages/<?php echo e($m->id); ?>/resolve"><?php echo csrf_field(); ?><button class="btn btn-sm btn-jm">Resolved</button></form><?php else: ?><span class="badge text-bg-success">resolved</span><?php endif; ?></td></tr><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?><tr><td colspan="6">No messages yet</td></tr><?php endif; ?></table></div></div>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.admin', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\xampp\htdocs\janwar-mart-laravel\janwar-mart-laravel\resources\views/admin/messages.blade.php ENDPATH**/ ?>

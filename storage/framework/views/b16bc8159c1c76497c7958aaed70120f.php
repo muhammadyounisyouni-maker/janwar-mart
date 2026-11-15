@@ -1,0 +1,6 @@
+<?php $__env->startSection('content'); ?>
+<div class="card"><div class="card-header">Consultations</div><div class="table-responsive"><table class="table table-sm mb-0"><tr><th>Ref</th><th>Doctor</th><th>Animal</th><th>Question</th><th>From</th><th>Status</th><th>Answer</th></tr>
+<?php $__currentLoopData = $cons; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $c): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><tr><td><?php echo e($c->ref); ?><br><small><?php echo e($c->created_at?->format('Y-m-d')); ?></small></td><td><?php echo e($c->doctor?->name); ?></td><td><?php echo e($c->animal); ?></td><td><?php echo e($c->text); ?></td><td><?php echo e($c->name); ?><br><small><?php echo e($c->phone); ?></small></td><td><span class="badge text-bg-<?php echo e($c->status === 'new' ? 'warning' : 'success'); ?>"><?php echo e($c->status); ?></span></td><td><?php echo e($c->reply); ?></td></tr><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?></table></div></div>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.admin', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\xampp\htdocs\janwar-mart-laravel\janwar-mart-laravel\resources\views/admin/consultations.blade.php ENDPATH**/ ?>

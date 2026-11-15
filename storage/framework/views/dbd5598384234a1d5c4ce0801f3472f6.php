@@ -1,0 +1,6 @@
+<?php $__env->startSection('content'); ?>
+<div class="card"><div class="card-header">Login / signup activity (latest 300)</div><div class="table-responsive"><table class="table table-sm mb-0"><tr><th>Time</th><th>Who</th><th>Event</th><th>IP</th><th>Device</th></tr>
+<?php $__currentLoopData = $events; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $e): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><tr><td><?php echo e($e->created_at?->format('Y-m-d H:i:s')); ?></td><td><?php echo e($e->user?->name); ?> <small><?php echo e($e->who); ?></small></td><td><span class="badge text-bg-<?php echo e(str_contains($e->event, 'failed') ? 'danger' : 'success'); ?>"><?php echo e($e->event); ?></span></td><td><?php echo e($e->ip); ?></td><td><small><?php echo e($e->ua); ?></small></td></tr><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?></table></div></div>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.admin', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\xampp\htdocs\janwar-mart-laravel\janwar-mart-laravel\resources\views/admin/logins.blade.php ENDPATH**/ ?>

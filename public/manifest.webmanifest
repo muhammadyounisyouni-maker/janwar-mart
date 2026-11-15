@@ -1,0 +1,24 @@
+{
+  "id": "/",
+  "name": "جانور مارٹ — Janwar Mart",
+  "short_name": "Janwar Mart",
+  "description": "جانور خریدیں یا فروخت کریں — ایڈمن سے جانچ شدہ اشتہارات۔ Buy or sell animals with admin-verified ads.",
+  "start_url": "/?source=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0c4620",
+  "theme_color": "#0b6b4a",
+  "lang": "ur",
+  "dir": "rtl",
+  "categories": ["shopping", "business"],
+  "icons": [
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "جانور دیکھیں / Browse", "url": "/#browse", "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "اشتہار لگائیں / Sell", "url": "/#sell", "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "کارٹ / Cart", "url": "/#cart", "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }] }
+  ]
+}

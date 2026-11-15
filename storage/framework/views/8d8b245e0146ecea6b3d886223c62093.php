@@ -1,0 +1,12 @@
+<?php $__env->startSection('content'); ?>
+<div class="card"><div class="card-header">All members (<?php echo e($users->count()); ?>)</div><div class="table-responsive"><table class="table table-sm mb-0">
+<tr><th>Name</th><th>Phone / Email</th><th>Role</th><th>Plan</th><th>Joined</th><th>Last login</th><th>Logins</th><th>Status</th><th></th></tr>
+<?php $__currentLoopData = $users; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $u): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><tr><td><?php echo e($u->name); ?></td><td><?php echo e($u->phone); ?><br><small><?php echo e($u->email); ?></small></td><td><?php echo e($u->role); ?></td>
+<td><?php if (! ($u->isAdmin())): ?><form method="post" action="/admin/users/<?php echo e($u->id); ?>/plan"><?php echo csrf_field(); ?><select name="plan" class="form-select form-select-sm" onchange="this.form.submit()"><?php $__currentLoopData = ['basic','silver','gold']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $p): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><option <?php if($u->plan === $p): echo 'selected'; endif; ?>><?php echo e($p); ?></option><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?></select></form><?php endif; ?></td>
+<td><?php echo e($u->created_at?->format('Y-m-d H:i')); ?></td><td><?php echo e($u->last_login_at?->format('Y-m-d H:i') ?? '—'); ?></td><td><?php echo e($u->login_count); ?></td>
+<td><span class="badge text-bg-<?php echo e($u->status === 'active' ? 'success' : 'danger'); ?>"><?php echo e($u->status); ?></span></td>
+<td><?php if (! ($u->isAdmin())): ?><form method="post" action="/admin/users/<?php echo e($u->id); ?>/<?php echo e($u->isBlocked() ? 'unblock' : 'block'); ?>" onsubmit="return confirm('Are you sure?')"><?php echo csrf_field(); ?><button class="btn btn-sm btn-<?php echo e($u->isBlocked() ? 'jm' : 'outline-danger'); ?>"><?php echo e($u->isBlocked() ? 'Unblock' : 'Block'); ?></button></form><?php endif; ?></td></tr><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+</table></div></div>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.admin', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\xampp\htdocs\janwar-mart-laravel\janwar-mart-laravel\resources\views/admin/users.blade.php ENDPATH**/ ?>

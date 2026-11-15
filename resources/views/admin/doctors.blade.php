@@ -1,0 +1,10 @@
+@extends('layouts.admin')
+@section('content')
+<div class="card"><div class="card-header">Veterinary doctors ({{ $docs->count() }}) — certificates and licences are private: only admins can open them.</div><div class="table-responsive"><table class="table table-sm mb-0">
+<tr><th></th><th>Doctor</th><th>Qualification</th><th>Clinic</th><th>Contact</th><th>Documents</th><th>Status</th><th>Actions</th></tr>
+@foreach($docs as $d)<tr><td>@if($d->photo)<img class="thumb" src="{{ asset('storage/'.$d->photo) }}" alt="">@endif</td><td>{{ $d->name }}<br><small>{{ $d->ref }} · Reg: {{ $d->reg }}</small></td><td>{{ $d->qual }}<br><small>{{ $d->uni }} · {{ $d->exp }} yr</small></td><td>{{ $d->clinic }}<br><small>{{ city_name($d->city) }} {{ $d->addr }}</small></td><td>{{ $d->phone }}<br><small>{{ $d->email }}</small></td>
+<td><a class="btn btn-sm btn-outline-secondary" target="_blank" href="/admin/doctors/{{ $d->id }}/file/cert">Certificate</a> <a class="btn btn-sm btn-outline-secondary" target="_blank" href="/admin/doctors/{{ $d->id }}/file/lic">Licence</a></td>
+<td><span class="badge text-bg-{{ $d->status === 'verified' ? 'success' : (in_array($d->status, ['pending', 'review']) ? 'warning' : 'danger') }}">{{ $d->status }}</span>@if($d->note)<br><small>{{ $d->note }}</small>@endif</td>
+<td><form method="post" action="/admin/doctors/{{ $d->id }}/approve" class="d-inline">@csrf<button class="btn btn-sm btn-jm" @disabled($d->status === 'verified')>Approve</button></form>
+<form method="post" class="d-flex gap-1 mt-1" onsubmit="this.action='/admin/doctors/{{ $d->id }}/'+this.act.value">@csrf<input name="note" class="form-control form-control-sm" placeholder="Reason (needed)"><select name="act" class="form-select form-select-sm"><option value="reject">Reject</option><option value="suspend">Suspend</option><option value="moreinfo">Ask more documents</option><option value="reinstate">Reinstate</option><option value="review">Mark under review</option></select><button class="btn btn-sm btn-outline-dark">Go</button></form></td></tr>@endforeach</table></div></div>
+@endsection
